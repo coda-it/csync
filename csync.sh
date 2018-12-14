@@ -1,7 +1,7 @@
 #!/bin/bash
 
 GROUP_FILTER=$1
-OPS_COUNT=$(sed -n "/^.*;.*\(;smarthome\)\{0,1\}$/ =" ~/.csync | tail -n 1)
+OPS_COUNT=$(sed -n "/^.*;.*\(;$GROUP_FILTER\)\{0,1\}$/ =" ~/.csync | tail -n 1)
 
 echo "csync will perform $OPS_COUNT number of operations"
 
