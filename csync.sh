@@ -24,7 +24,7 @@ do
   if [[ -z "$GROUP_FILTER" || ( -n "$GROUP_FILTER" && ( -z "$GROUP" || "$GROUP" == "$GROUP_FILTER" ) ) ]]
   then
     echo "$SYNC_MODE ... $FROM > $TO"
-    rsync --stats $DELETE_FLAG -azh -r $FROM/* $TO/
+    rsync --stats $DELETE_FLAG -azh -r "$FROM/" "$TO/"
   else
     echo "Skipping ... $FROM > $TO"
   fi
