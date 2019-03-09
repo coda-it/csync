@@ -1,9 +1,19 @@
 #!/bin/bash
 
-GROUP_FILTER=$1
-OPS_COUNT=$(sed -n "/^.*;.*\(;$GROUP_FILTER\)\{0,1\}$/ =" ~/.csync | tail -n 1)
+if [[ "$1" == "all" ]]
+then
+    GROUP_FILTER=""
+else
+    GROUP_FILTER=$1
+fi
 
-echo "csync will perform $OPS_COUNT number of operations"
+CSYNC_FILE=$2
+CSYNC_FILE="${CSYNC_FILE:=csync}"
+CSYNC_FILE="~/.$CSYNC_FILE"
+CMD_CSYNC_FILE=$(eval echo $CSYNC_FILE)
+CMD_OPS_COUNT=$(sed -n "/^.*;.*\(;$GROUP_FILTER\)\{0,1\}$/ =" $CMD_CSYNC_FILE | tail -n 1)
+
+echo "csync will perform $CMD_OPS_COUNT number of operations"
 
 while IFS=";" read -r p || [ -n "$p" ]
 do
@@ -28,4 +38,4 @@ do
   else
     echo "Skipping ... $FROM > $TO"
   fi
-done < ~/.csync
+done < $CMD_CSYNC_FILE
